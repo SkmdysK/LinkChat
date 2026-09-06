@@ -1,0 +1,13 @@
+category	protocol_version	cipher_suite	canonical_input	expected_output_or_error	state_transition	turn	generation
+bootstrap	1.0	V1HybridMlKem768	bootstrap-context-v1	provider-boundary	no-core-transition	0	0
+identity	1.0	V1HybridMlKem768	identity-signature-context-v1	valid-signature-or-invalid-key	no-core-transition	0	0
+receiver-package	1.0	V1HybridMlKem768	public-receiver-package-v1	canonical-round-trip	package-projection-only	0	0
+message	1.0	V1HybridMlKem768	application-message-v1	canonical-round-trip	one-step-when-valid	0->1	0->1
+header	1.0	V1HybridMlKem768	header-aad-context-v1	canonical-domain-binding	no-core-transition	0	0
+token	1.0	V1HybridMlKem768	mailbox-token-32-byte	fixed-length-or-error	mailbox-only	0	0
+replay	1.0	V1HybridMlKem768	consumed-message-id	Replay-and-no-op	unchanged	1	1
+rollback	1.0	V1HybridMlKem768	old-generation-package	GenerationRegression	unchanged	1	1
+storage-recovery	1.0	V1HybridMlKem768	pending-marker-fault-matrix	old-or-complete-new-current	atomic-recovery	0->1	0->1
+kem	1.0	V1HybridMlKem768	X25519-and-ML-KEM-ciphertext	shared-secret-or-stable-error	no-core-transition	0	0
+hkdf	1.0	V1HybridMlKem768	domain-and-context-framing	fixed-length-derived-output	no-core-transition	0	0
+aead	1.0	V1HybridMlKem768	key-nonce-aad-plaintext	open-or-authentication-error	no-core-transition	0	0

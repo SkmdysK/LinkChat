@@ -1,0 +1,17 @@
+[package]
+name = "linkchat-verification"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+linkchat-core = { path = "../linkchat-core" }
+linkchat-crypto = { path = "../linkchat-crypto" }
+linkchat-mailbox = { path = "../linkchat-mailbox" }
+linkchat-protocol = { path = "../linkchat-protocol" }
+linkchat-storage = { path = "../linkchat-storage" }
+linkchat-transport = { path = "../linkchat-transport" }
+linkchat-types = { path = "../linkchat-types" }
+
+[dev-dependencies]
+linkchat-core = { path = "../linkchat-core", features = ["test-support"] }

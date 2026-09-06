@@ -1,0 +1,14 @@
+[package]
+name = "linkchat-engine"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+linkchat-core = { path = "../linkchat-core" }
+linkchat-crypto = { path = "../linkchat-crypto" }
+linkchat-protocol = { path = "../linkchat-protocol" }
+linkchat-types = { path = "../linkchat-types" }
+
+[dev-dependencies]
+linkchat-core = { path = "../linkchat-core", features = ["test-support"] }

@@ -1,0 +1,15 @@
+[package]
+name = "linkchat-ffi"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib", "staticlib"]
+
+[dependencies]
+linkchat-core = { path = "../linkchat-core" }
+linkchat-engine = { path = "../linkchat-engine" }
+linkchat-crypto = { path = "../linkchat-crypto" }
+linkchat-protocol = { path = "../linkchat-protocol" }
+linkchat-types = { path = "../linkchat-types" }

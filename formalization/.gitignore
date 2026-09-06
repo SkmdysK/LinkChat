@@ -1,0 +1,12 @@
+# Lean build output
+*.olean
+*.ilean
+
+# macOS metadata
+.DS_Store
+
+# Local editor and temporary files
+*.swp
+*.swo
+*~
+._*

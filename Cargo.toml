@@ -1,0 +1,15 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/linkchat-types",
+    "crates/linkchat-protocol",
+    "crates/linkchat-crypto",
+    "crates/linkchat-core",
+    "crates/linkchat-engine",
+    "crates/linkchat-storage",
+    "crates/linkchat-transport",
+    "crates/linkchat-mailbox",
+    "crates/linkchat-verification",
+    "crates/linkchat-ffi",
+    "crates/linkchat-cli",
+]

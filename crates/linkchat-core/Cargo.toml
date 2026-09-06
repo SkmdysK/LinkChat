@@ -1,0 +1,14 @@
+[package]
+name = "linkchat-core"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[features]
+default = []
+test-support = []
+
+[dependencies]
+linkchat-protocol = { path = "../linkchat-protocol" }
+linkchat-crypto = { path = "../linkchat-crypto" }
+linkchat-types = { path = "../linkchat-types" }

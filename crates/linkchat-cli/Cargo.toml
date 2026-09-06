@@ -1,0 +1,15 @@
+[package]
+name = "linkchat-cli"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[[bin]]
+name = "linkchat-cli"
+path = "src/main.rs"
+
+[dependencies]
+linkchat-core = { path = "../linkchat-core" }
+linkchat-crypto = { path = "../linkchat-crypto" }
+linkchat-protocol = { path = "../linkchat-protocol" }
+linkchat-types = { path = "../linkchat-types" }

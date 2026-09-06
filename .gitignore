@@ -1,0 +1,30 @@
+# Rust build output
+/target/
+
+# macOS metadata
+.DS_Store
+
+# Local editor and OS files
+*.swp
+*.swo
+*~
+._*
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local logs and crash dumps
+*.log
+*.dSYM/
+core.*
+
+# Local tool state
+.idea/
+.vscode/
+.cargo/config.toml
