@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  rust:
+    name: Rust (fmt, check, test, clippy)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Reads rust-toolchain.toml (pinned to 1.96.0).
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          components: rustfmt, clippy
+
+      - name: Format
+        run: cargo fmt --all -- --check
+
+      - name: Check
+        run: cargo check --workspace --all-targets
+
+      - name: Test
+        run: cargo test --workspace
+
+      - name: Clippy
+        run: cargo clippy --workspace --all-targets --all-features -- -D warnings
+
+  lean:
+    name: Lean build + Rust/Lean conformance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+
+      # Reads formalization/lean-toolchain (Lean 4.31.0) and runs `lake build`.
+      # Every module must check with no `sorry` and no extra axioms.
+      - uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: formalization
+          build: true
+          test: false
+          lint: false
+
+      - name: Rust/Lean differential conformance
+        env:
+          LINKCHAT_FORMALIZATION_DIR: ${{ github.workspace }}/formalization
+        # The test is #[ignore]d by default because it needs Lean + a built
+        # package; here both exist, so it must actually run and pass.
+        run: cargo test -p linkchat-verification -- --ignored --nocapture
