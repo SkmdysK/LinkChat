@@ -2,6 +2,7 @@
 
 [中文](README.zh-CN.md) | **English**
 
+[![CI](https://github.com/SkmdysK/LinkChat/actions/workflows/ci.yml/badge.svg)](https://github.com/SkmdysK/LinkChat/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Rust](https://img.shields.io/badge/rust-1.96.0-orange.svg)](rust-toolchain.toml)
 [![Protocol](https://img.shields.io/badge/protocol-LinkChat%20v1.0-informational.svg)](https://github.com/SkmdysK/LinkChatDocuments)
@@ -80,13 +81,29 @@ before integrating the kernel.
 
 ## Build and Verification
 
-The workspace pins Rust `1.96.0` in `rust-toolchain.toml`.
+The workspace pins Rust `1.96.0` in `rust-toolchain.toml`. CI runs every step
+below on each push.
 
 ```bash
 cargo fmt --all -- --check
 cargo check --workspace
 cargo test --workspace
 cargo clippy --workspace --all-targets --all-features -- -D warnings
+```
+
+The Lean formalization builds the same way and requires no extra setup beyond a
+Lean `4.31.0` toolchain:
+
+```bash
+cd formalization && lake build
+```
+
+The Rust/Lean differential conformance test needs the compiled Lean artifacts,
+so it is `#[ignore]`d in the default test run and executed explicitly:
+
+```bash
+LINKCHAT_FORMALIZATION_DIR="$PWD/formalization" \
+  cargo test -p linkchat-verification -- --ignored --nocapture
 ```
 
 Optional development commands:

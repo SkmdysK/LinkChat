@@ -1,0 +1,7 @@
+name = "linkchat"
+defaultTargets = ["LinkChat"]
+
+[[lean_lib]]
+name = "LinkChat"
+srcDir = "."
+roots = ["LinkChat", "RefinedProtocol", "SecurityGames", "StandardCrypto", "ComputationalGames", "ConcreteSECCReduction", "ConcreteSecurityModel", "ConcreteSecurityReductions"]

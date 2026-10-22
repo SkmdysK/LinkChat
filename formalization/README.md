@@ -29,6 +29,30 @@ the symbolic Lean model alone.
 This directory contains a Lean 4.31.0 machine-checked formalization of the
 protocol's core state-machine and security-game properties.
 
+## Build and Check
+
+The formalization is a Lake package pinned to Lean `4.31.0` via
+`lean-toolchain`. To check every theorem from a clean checkout:
+
+```bash
+cd formalization
+lake build          # compiles all 8 modules; no `sorry`, no extra axioms
+```
+
+`lake build` is the only requirement for reviewing the proofs. It produces
+`.olean` artifacts under `.lake/build/lib/lean/`, which the Rust
+conformance harness consumes through `LEAN_PATH`:
+
+```bash
+# from the repository root, after `lake build`
+LINKCHAT_FORMALIZATION_DIR="$PWD/formalization" \
+  cargo test -p linkchat-verification -- --ignored --nocapture
+```
+
+That test is marked `#[ignore]` on purpose: it needs both a Lean toolchain and
+a built package, so it is excluded from the default `cargo test` run instead of
+silently reporting success. CI runs it on every push.
+
 ## Checked theorems
 
 - unique alternating leader for every turn;

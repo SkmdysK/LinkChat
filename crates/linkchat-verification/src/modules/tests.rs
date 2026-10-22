@@ -547,24 +547,35 @@ fn fuzz_smoke_rejects_mutated_wire_inputs_without_panics() {
     ));
 }
 
+/// Bounded Rust/Lean differential conformance check.
+///
+/// Requires a Lean toolchain and a built Lean package (`cd formalization && lake
+/// build`), so it is excluded from the default test run instead of silently
+/// reporting success when its prerequisites are missing.
 #[test]
+#[ignore = "requires `lake build` in formalization/ and LINKCHAT_FORMALIZATION_DIR"]
 fn lean_bounded_oracle_matches_rust_core_projection() {
-    let Some(formalization_dir) =
-        std::env::var_os("LINKCHAT_FORMALIZATION_DIR").map(std::path::PathBuf::from)
-    else {
-        eprintln!("LINKCHAT_FORMALIZATION_DIR is not set; bounded differential test skipped");
-        return;
-    };
+    let formalization_dir = std::env::var_os("LINKCHAT_FORMALIZATION_DIR")
+        .map(std::path::PathBuf::from)
+        .expect(
+            "set LINKCHAT_FORMALIZATION_DIR to the formalization/ directory \
+             (run `lake build` there first)",
+        );
     let oracle =
         Path::new(env!("CARGO_MANIFEST_DIR")).join("../../verification/lean/BoundedOracle.lean");
-    if !Path::new("/usr/bin/lean").exists()
-        && Command::new("lean").arg("--version").output().is_err()
-    {
-        eprintln!("Lean unavailable; bounded differential test skipped");
-        return;
-    }
+    assert!(
+        Path::new("/usr/bin/lean").exists()
+            || Command::new("lean").arg("--version").output().is_ok(),
+        "Lean toolchain not found on PATH; install Lean 4.31.0 (see formalization/lean-toolchain)"
+    );
+    let olean_dir = formalization_dir.join(".lake/build/lib/lean");
+    assert!(
+        olean_dir.exists(),
+        "no compiled Lean artifacts at {}; run `lake build` in the formalization directory first",
+        olean_dir.display()
+    );
     let output = Command::new("lean")
-        .env("LEAN_PATH", &formalization_dir)
+        .env("LEAN_PATH", olean_dir)
         .arg("--run")
         .arg(&oracle)
         .output()

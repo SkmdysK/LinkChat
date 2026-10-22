@@ -1,4 +1,5 @@
 # Lean build output
+.lake/
 *.olean
 *.ilean
 
