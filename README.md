@@ -2,6 +2,12 @@
 
 [中文](README.zh-CN.md) | **English**
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Rust](https://img.shields.io/badge/rust-1.96.0-orange.svg)](rust-toolchain.toml)
+[![Protocol](https://img.shields.io/badge/protocol-LinkChat%20v1.0-informational.svg)](https://github.com/SkmdysK/LinkChatDocuments)
+[![Spec + Vectors](https://img.shields.io/badge/spec%20%2B%20vectors-LinkChatDocuments-green.svg)](https://github.com/SkmdysK/LinkChatDocuments)
+[![Security Policy](https://img.shields.io/badge/security-policy-red.svg)](SECURITY.md)
+
 LinkChat Rust Kernel is an executable research artifact for the LinkChat v1.0
 protocol. It combines a typed Rust implementation with a Lean formalization of
 the protocol's refined state-transition model.
@@ -124,6 +130,17 @@ in [`LinkChatDocuments`](https://github.com/SkmdysK/LinkChatDocuments).
 For a new implementation, read the specification first, then compare wire and
 state-machine behavior against the public vectors before selecting storage and
 transport adapters.
+
+## Where to Start
+
+| If you want to... | Read this first |
+| --- | --- |
+| Review the protocol design | [`LinkChatDocuments`](https://github.com/SkmdysK/LinkChatDocuments) spec + research paper |
+| Check interoperability | [`vectors/`](vectors) and `cargo test -p linkchat-verification` |
+| Inspect the formal model | [`formalization/`](formalization) (Lean state model, games, reductions) |
+| Integrate storage or transport | [`docs/`](docs) storage/transport/mailbox contracts |
+| Embed in a non-Rust host | [`crates/linkchat-ffi`](crates/linkchat-ffi) opaque-handle C ABI |
+| Report a vulnerability | [`SECURITY.md`](SECURITY.md) |
 
 ## Status and License
 
