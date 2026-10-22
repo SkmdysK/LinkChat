@@ -575,6 +575,9 @@ fn lean_bounded_oracle_matches_rust_core_projection() {
         olean_dir.display()
     );
     let output = Command::new("lean")
+        // Run from the package directory so a `lean-toolchain` resolving
+        // toolchain manager (elan) selects the pinned Lean release.
+        .current_dir(&formalization_dir)
         .env("LEAN_PATH", olean_dir)
         .arg("--run")
         .arg(&oracle)
